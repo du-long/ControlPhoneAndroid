@@ -484,8 +484,8 @@ public class VideoService extends Service {
         //注意该属性的设置很重要，FLAG_NOT_FOCUSABLE使浮动窗口不获取焦点,若不设置该属性，屏幕的其它位置点击无效，应为它们无法获取焦点
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         //设置视图的显示位置，通过WindowManager更新视图的位置其实就是改变(x,y)的值
-        layoutParams.height = 300;
-        layoutParams.width = 300;
+        layoutParams.height = 10;
+        layoutParams.width = 10;
         if (Build.VERSION.SDK_INT >= 23) {
             if (Settings.canDrawOverlays(getApplicationContext())) {
                 windowManager.addView(view, layoutParams);

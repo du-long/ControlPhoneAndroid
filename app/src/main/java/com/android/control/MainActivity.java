@@ -18,11 +18,12 @@ import android.widget.Toast;
 
 
 import com.android.control.base.BaseActivity;
+import com.android.control.utils.SaveUtils;
 import com.android.control.video.VideoService;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String RTMPURL_MESSAGE = "com.android.control.rtmpurl";
     private EditText _rtmpUrlEditText = null;
     private static final String _rtmpUrlDefault = "rtmp://192.168.0.44:1935/live/12345678";
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+    private EditText et_userName;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -74,6 +76,8 @@ public class MainActivity extends BaseActivity {
                 et_jpushID.setText(JPushInterface.getRegistrationID(MainActivity.this));
             }
         });
+        et_userName = findViewById(R.id.et_userName);
+        findViewById(R.id.btn_userName).setOnClickListener(this);
     }
 
     @Override
@@ -108,4 +112,18 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_userName:
+                String userName = et_userName.getText().toString();
+                if (userName.isEmpty()) {
+                    Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(this, SaveUtils.saveUserName(this, userName) ? "设置成功" : "设置失败", Toast.LENGTH_SHORT).show();
+
+                break;
+        }
+    }
 }

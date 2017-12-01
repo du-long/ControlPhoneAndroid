@@ -18,6 +18,7 @@
         android:id="@+id/btn_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -27,6 +28,8 @@
         android:id="@+id/SwitchCamerabutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_alignBottom="@+id/surfaceViewEx"
         android:text="@string/SwitchCamera" />
 </RelativeLayout>

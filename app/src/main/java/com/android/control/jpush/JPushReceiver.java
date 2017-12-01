@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.android.control.MainActivity;
 import com.android.control.utils.RetrofitUtil;
+import com.android.control.utils.SaveUtils;
 import com.android.control.video.VideoService;
 import com.google.gson.Gson;
 
@@ -56,6 +57,7 @@ public class JPushReceiver extends BroadcastReceiver {
         String baseUrl = "http://" + messageBean.ipAddress + ":8081/control/online?type=2";
         HashMap<String, String> map = new HashMap<>();
         map.put("registrationID", JPushInterface.getRegistrationID(context));
+        map.put("userName", SaveUtils.getUserName(context));
         String toJson = new Gson().toJson(map);
         Observable<String> stringObservable = apiService.onLine(baseUrl, toJson);
         stringObservable.subscribe(new Observer<String>() {
@@ -84,7 +86,6 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     void startSendVideoService(Context context, MessageBean messageBean) {
-
         Intent i = new Intent(context, VideoService.class);
         context.stopService(i);
         i.putExtra(MainActivity.RTMPURL_MESSAGE, "rtmp://" + messageBean.ipAddress + "/live/" + JPushInterface.getRegistrationID(context));
