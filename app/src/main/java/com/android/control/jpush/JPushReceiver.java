@@ -20,11 +20,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 自定义接收器
- * <p>
- * 如果不定义这个 Receiver，则：
- * 1) 默认用户会打开主界面
- * 2) 接收不到自定义消息
+ * 接收Jpush推送过来的消息
  */
 public class JPushReceiver extends BroadcastReceiver {
 
@@ -52,7 +48,6 @@ public class JPushReceiver extends BroadcastReceiver {
     }
 
     void onLineUser(Context context, MessageBean messageBean) {
-//http://localhost:8081/control/online?type=2
         ApiService apiService = RetrofitUtil.retrofit.create(ApiService.class);
         String baseUrl = "http://" + messageBean.ipAddress + ":8081/control/online?type=2";
         HashMap<String, String> map = new HashMap<>();
