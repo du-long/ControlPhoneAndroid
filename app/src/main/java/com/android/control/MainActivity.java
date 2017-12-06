@@ -13,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -78,6 +80,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         et_userName = findViewById(R.id.et_userName);
         findViewById(R.id.btn_userName).setOnClickListener(this);
         et_userName.setText(SaveUtils.getUserName(this));
+        final CheckBox cb_hint = findViewById(R.id.cb_hint);
+        cb_hint.setChecked(SaveUtils.getIsHint(this));
+        cb_hint.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SaveUtils.saveIsHint(MainActivity.this, isChecked);
+            }
+        });
     }
 
     @Override

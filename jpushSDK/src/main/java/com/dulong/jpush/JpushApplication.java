@@ -1,6 +1,7 @@
 package com.dulong.jpush;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.dulong.jpush.daemon.DaemonReceiver;
 import com.dulong.jpush.daemon.DaemonService;
@@ -16,7 +17,7 @@ import cn.jpush.android.service.PushService;
  * <p>
  * 一般建议在自定义 Application 类里初始化。也可以在主 Activity 里。
  */
-public class JpushApplication extends DaemonApplication {
+public abstract class JpushApplication extends DaemonApplication {
     private static final String TAG = "JIGUANG-Example";
 
     @Override
@@ -24,7 +25,7 @@ public class JpushApplication extends DaemonApplication {
         Logger.d(TAG, "[JpushApplication] onCreate");
         super.onCreate();
 
-        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
     }
 //    @Override
@@ -60,14 +61,23 @@ public class JpushApplication extends DaemonApplication {
     class MyDaemonListener implements DaemonConfigurations.DaemonListener {
         @Override
         public void onPersistentStart(Context context) {
+            Log.i("tjhq--", "onPersistentStart: ");
+            startServiceListener();
         }
 
         @Override
         public void onDaemonAssistantStart(Context context) {
+            Log.i("tjhq--", "onDaemonAssistantStart: ");
         }
 
         @Override
         public void onWatchDaemonDaed() {
+            Log.i("tjhq--", "onWatchDaemonDaed: ");
         }
     }
+
+    /**
+     * 被守护的进程启动监听
+     */
+    protected abstract void startServiceListener();
 }

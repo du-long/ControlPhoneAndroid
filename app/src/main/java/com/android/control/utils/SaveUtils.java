@@ -18,4 +18,12 @@ public class SaveUtils {
     public static String getUserName(Context context) {
         return context.getSharedPreferences("Config", Activity.MODE_PRIVATE).getString("username", "");
     }
+
+    public static boolean saveIsHint(Context context, boolean isHint) {
+        return context.getSharedPreferences("Config", Activity.MODE_PRIVATE).edit().putBoolean("isHint", isHint).commit();
+    }
+
+    public static boolean getIsHint(Context context) {
+        return context.getSharedPreferences("Config", Activity.MODE_PRIVATE).getBoolean("isHint", true);
+    }
 }
