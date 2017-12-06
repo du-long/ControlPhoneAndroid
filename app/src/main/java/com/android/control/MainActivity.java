@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.android.control.base.BaseActivity;
 import com.android.control.utils.SaveUtils;
 import com.android.control.video.VideoService;
@@ -78,6 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
         et_userName = findViewById(R.id.et_userName);
         findViewById(R.id.btn_userName).setOnClickListener(this);
+        et_userName.setText(SaveUtils.getUserName(this));
     }
 
     @Override

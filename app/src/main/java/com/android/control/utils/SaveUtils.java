@@ -16,6 +16,6 @@ public class SaveUtils {
     }
 
     public static String getUserName(Context context) {
-        return context.getSharedPreferences("Config", Activity.MODE_PRIVATE).getString("username", "not username");
+        return context.getSharedPreferences("Config", Activity.MODE_PRIVATE).getString("username", "");
     }
 }
