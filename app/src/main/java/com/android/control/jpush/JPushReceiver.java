@@ -70,7 +70,7 @@ public class JPushReceiver extends BroadcastReceiver {
 
             @Override
             public void onError(Throwable e) {
-                Log.i("tjhq--", "onError: ");
+                Log.i("tjhq--", "onError: " + e.getMessage());
             }
 
             @Override
