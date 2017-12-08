@@ -23,23 +23,14 @@ import com.android.control.utils.SaveUtils;
 import com.android.control.video.VideoService;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.PushService;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String RTMPURL_MESSAGE = "com.android.control.rtmpurl";
     private EditText _rtmpUrlEditText = null;
     private static final String _rtmpUrlDefault = "rtmp://192.168.0.44:1935/live/12345678";
-    private View.OnClickListener _startRtmpPushOnClickedEvent = new View.OnClickListener() {
-        @Override
-        public void onClick(View arg0) {
-            if (!isHavePermission()) return;
-            Intent i = new Intent(MainActivity.this, VideoService.class);
-            String rtmpUrl = _rtmpUrlEditText.getText().toString();
-            i.putExtra(MainActivity.RTMPURL_MESSAGE, rtmpUrl);
-            startService(i);
-
-        }
-    };
     private EditText et_userName;
+    private EditText et_jpushID;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -66,21 +57,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void InitUI() {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initUI();
+    }
+
+    private void initUI() {
         _rtmpUrlEditText = findViewById(R.id.rtmpUrleditText);
         _rtmpUrlEditText.setText(_rtmpUrlDefault);
-        findViewById(R.id.startRtmpButton).setOnClickListener(_startRtmpPushOnClickedEvent);
-        final EditText et_jpushID = findViewById(R.id.et_jpushID);
-        findViewById(R.id.btn_getID).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et_jpushID.setText(JPushInterface.getRegistrationID(MainActivity.this));
-            }
-        });
+        findViewById(R.id.startRtmpButton).setOnClickListener(this);
+        et_jpushID = findViewById(R.id.et_jpushID);
+        et_jpushID.setText(JPushInterface.getRegistrationID(MainActivity.this) == null ? "" : JPushInterface.getRegistrationID(MainActivity.this));
+        findViewById(R.id.btn_getID).setOnClickListener(this);
         et_userName = findViewById(R.id.et_userName);
         findViewById(R.id.btn_userName).setOnClickListener(this);
         et_userName.setText(SaveUtils.getUserName(this));
-        final CheckBox cb_hint = findViewById(R.id.cb_hint);
+        CheckBox cb_hint = findViewById(R.id.cb_hint);
         cb_hint.setChecked(SaveUtils.getIsHint(this));
         cb_hint.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -88,13 +83,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 SaveUtils.saveIsHint(MainActivity.this, isChecked);
             }
         });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        InitUI();
     }
 
     public boolean isHavePermission() {
@@ -133,6 +121,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 Toast.makeText(this, SaveUtils.saveUserName(this, userName) ? "设置成功" : "设置失败", Toast.LENGTH_SHORT).show();
 
+                break;
+            case R.id.btn_getID:
+                et_jpushID.setText(JPushInterface.getRegistrationID(MainActivity.this));
+                startService(new Intent(MainActivity.this, PushService.class));
+                break;
+            case R.id.startRtmpButton:
+                if (!isHavePermission()) return;
+                Intent i = new Intent(MainActivity.this, VideoService.class);
+                String rtmpUrl = _rtmpUrlEditText.getText().toString();
+                i.putExtra(MainActivity.RTMPURL_MESSAGE, rtmpUrl);
+                startService(i);
                 break;
         }
     }
