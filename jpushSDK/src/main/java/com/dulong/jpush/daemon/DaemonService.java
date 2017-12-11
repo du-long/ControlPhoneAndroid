@@ -21,7 +21,7 @@ public class DaemonService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("dl--", "onReceive: DaemonService===" + Test.getCurProcessName(getApplicationContext()));
+        Log.i("tjhq--", "onReceive: DaemonService===" + Test.getCurProcessName(getApplicationContext()));
         return Service.START_NOT_STICKY;
     }
 }

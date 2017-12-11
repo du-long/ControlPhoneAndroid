@@ -133,6 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 i.putExtra(MainActivity.RTMPURL_MESSAGE, rtmpUrl);
                 startService(i);
                 break;
+
         }
     }
 }

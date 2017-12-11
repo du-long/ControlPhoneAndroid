@@ -14,7 +14,7 @@ import com.dulong.jpush.utils.Test;
 public class MainReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("dl--", "onReceive: MainReceiver===" + Test.getCurProcessName(context));
+        Log.i("tjhq--", "onReceive: MainReceiver===" + Test.getCurProcessName(context));
 
     }
 }

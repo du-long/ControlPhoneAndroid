@@ -363,7 +363,7 @@ public class VideoService extends Service {
         if (DEBUG_ENABLE) {
             File saveDir = Environment.getExternalStorageDirectory();
             String strFilename = saveDir + "/aaa.h264";
-            Log.i("dl--", "Start: " + strFilename);
+            Log.i("tjhq--", "Start: " + strFilename);
             try {
                 _outputStream = new DataOutputStream(new FileOutputStream(strFilename));
             } catch (FileNotFoundException e) {
@@ -512,14 +512,14 @@ public class VideoService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i("dl--", "onBind: ");
+        Log.i("tjhq--", "onBind: ");
         return null;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("dl--", "onDestroy: ");
+        Log.i("tjhq--", "onDestroy: ");
         if (_mCamera != null) {
             try {
                 _mCamera.setPreviewCallback(null);

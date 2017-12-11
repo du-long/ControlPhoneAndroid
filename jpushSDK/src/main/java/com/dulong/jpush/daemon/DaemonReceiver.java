@@ -14,7 +14,7 @@ import com.dulong.jpush.utils.Test;
 public class DaemonReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("dl--", "onReceive: DaemonReceiver===" + Test.getCurProcessName(context));
+        Log.i("tjhq--", "onReceive: DaemonReceiver===" + Test.getCurProcessName(context));
     }
 
 
